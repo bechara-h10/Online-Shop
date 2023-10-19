@@ -1,14 +1,15 @@
 import React, { useState } from "react";
 import styles from "../styles/login.module.css";
 import cx from "classnames";
-import { auth, provider } from "../firebase";
+import db, { auth, provider } from "../firebase";
 import { useDispatch } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
 import { signInWithPopup } from "firebase/auth";
 import { signIn } from "../redux/userSlice";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import LoadingSpinner from "../components/LoadingSpinner";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
+import { doc, getDoc, setDoc } from "firebase/firestore";
 
 function SignIn() {
   const [email, setEmail] = useState("");
@@ -18,27 +19,55 @@ function SignIn() {
   const navigate = useNavigate();
   const userLoginWithGoogle = () => {
     setIsLoading(true);
-    signInWithPopup(auth, provider).then((result) => {
+    signInWithPopup(auth, provider).then(async (result) => {
       let user = result.user;
-      dispatch(
-        signIn({
-          user: { email: user.email },
-        })
-      );
-      navigate("/");
-      toast("You have been successfully logged in");
+      try {
+        const userRef = doc(db, "users", user.uid);
+        const userSnapshot = await getDoc(userRef);
+        if (!userSnapshot.exists()) {
+          await setDoc(userRef, {
+            email: user.email,
+            cart: [],
+          });
+        }
+        dispatch(
+          signIn({
+            user: { email: user.email },
+          })
+        );
+        navigate("/");
+        toast("You have been successfully logged in");
+      } catch (error) {
+        setIsLoading(false);
+        console.log(error);
+      }
     });
   };
 
   const userLogin = async (email, password) => {
     setIsLoading(true);
-    const user = await signInWithEmailAndPassword(auth, email, password);
-    dispatch(
-      signIn({
-        user: { email: user.email },
-      })
-    );
-    toast("You have been successfully logged in");
+    try {
+      const user = await signInWithEmailAndPassword(auth, email, password);
+      const userRef = doc(db, "users", user.uid);
+      const userSnapshot = await getDoc(userRef);
+      if (!userSnapshot.exists()) {
+        await setDoc(userRef, {
+          email: user.email,
+          cart: [],
+        });
+      }
+      console.log(user);
+      dispatch(
+        signIn({
+          user: { email: user.email },
+        })
+      );
+      toast("You have been successfully logged in");
+    } catch (error) {
+      toast(error.message);
+      console.log(error);
+    }
+    setIsLoading(false);
   };
   return (
     <>
