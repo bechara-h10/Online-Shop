@@ -1,0 +1,48 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  max-width: 300px;
+  margin: auto;
+  gap: 16px;
+  background-color: #fff;
+  padding: 16px 32px;
+  border-radius: 8px;
+}
+
+.loginInput {
+  border-radius: 4px;
+  padding: 8px 16px;
+  border: solid 1px #aaa;
+  font-size: 16px;
+}
+
+.loginInput:focus {
+  outline: solid 1px #777;
+}
+
+.formButton {
+  font-size: 16px;
+  border: none;
+  border-radius: 4px;
+  padding: 8px;
+  cursor: pointer;
+  background-color: #252525;
+  color: #fff;
+  transition: opacity 250ms ease-in-out;
+}
+
+.formButton:hover {
+  opacity: 0.85;
+}
+
+.formButton.googleButton {
+  background-color: #fff;
+  color: #252525;
+  border: solid 1px #252525;
+}
+
+.loginHeader {
+  text-align: center;
+  margin-top: 100px;
+  font-size: 24px;
+}
