@@ -1,9 +1,35 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styles from "../styles/header.module.css";
 import logoNoBackground from "../assets/logo-no-background.svg";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { signOut as setSignOut, signIn } from "../redux/userSlice";
+import { signOut, onAuthStateChanged } from "firebase/auth";
+import { auth } from "../firebase";
 
 function Header() {
+  const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const userLogout = async () => {
+    await signOut(auth);
+    dispatch(setSignOut());
+    navigate("/");
+  };
+  useEffect(() => {
+    onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        dispatch(
+          signIn({
+            email: user.email,
+            provider: "google",
+            password: "",
+          })
+        );
+        navigate("/");
+      }
+    });
+  }, []);
   return (
     <header className={styles.header}>
       <div className={styles.logoContainer}>
@@ -23,7 +49,7 @@ function Header() {
         </li>
         <li>
           <NavLink
-            to={"/login"}
+            to={"/shop"}
             className={({ isActive }) => {
               return isActive ? styles.activeLink : styles.link;
             }}
@@ -40,6 +66,20 @@ function Header() {
           >
             About
           </NavLink>
+        </li>
+        <li>
+          {isAuthenticated ? (
+            <button className={styles.loginButton} onClick={userLogout}>
+              Logout <i className="fa-solid fa-right-from-bracket"></i>
+            </button>
+          ) : (
+            <button
+              className={styles.loginButton}
+              onClick={() => navigate("/login")}
+            >
+              Login
+            </button>
+          )}
         </li>
       </ul>
     </header>

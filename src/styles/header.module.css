@@ -50,3 +50,11 @@
   bottom: -6px;
   border-radius: 4px;
 }
+
+.loginButton {
+  background-color: transparent;
+  color: #fff;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+}
