@@ -6,6 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { signOut as setSignOut, signIn } from "../redux/userSlice";
 import { signOut, onAuthStateChanged } from "firebase/auth";
 import { auth } from "../firebase";
+import { Toaster } from "react-hot-toast";
 
 function Header() {
   const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
@@ -21,9 +22,9 @@ function Header() {
       if (user) {
         dispatch(
           signIn({
-            email: user.email,
-            provider: "google",
-            password: "",
+            user: {
+              email: user.email,
+            },
           })
         );
         navigate("/");
@@ -31,58 +32,61 @@ function Header() {
     });
   }, []);
   return (
-    <header className={styles.header}>
-      <div className={styles.logoContainer}>
-        <img src={logoNoBackground} alt="All-Shop logo" />
-        <span>All-Shop</span>
-      </div>
-      <ul className={styles.pagesList}>
-        <li>
-          <NavLink
-            to={"/"}
-            className={({ isActive }) => {
-              return isActive ? styles.activeLink : styles.link;
-            }}
-          >
-            Home
-          </NavLink>
-        </li>
-        <li>
-          <NavLink
-            to={"/shop"}
-            className={({ isActive }) => {
-              return isActive ? styles.activeLink : styles.link;
-            }}
-          >
-            Shop
-          </NavLink>
-        </li>
-        <li>
-          <NavLink
-            to={"/signup"}
-            className={({ isActive }) => {
-              return isActive ? styles.activeLink : styles.link;
-            }}
-          >
-            About
-          </NavLink>
-        </li>
-        <li>
-          {isAuthenticated ? (
-            <button className={styles.loginButton} onClick={userLogout}>
-              Logout <i className="fa-solid fa-right-from-bracket"></i>
-            </button>
-          ) : (
-            <button
-              className={styles.loginButton}
-              onClick={() => navigate("/login")}
+    <>
+      <Toaster />
+      <header className={styles.header}>
+        <div className={styles.logoContainer}>
+          <img src={logoNoBackground} alt="All-Shop logo" />
+          <span>All-Shop</span>
+        </div>
+        <ul className={styles.pagesList}>
+          <li>
+            <NavLink
+              to={"/"}
+              className={({ isActive }) => {
+                return isActive ? styles.activeLink : styles.link;
+              }}
             >
-              Login
-            </button>
-          )}
-        </li>
-      </ul>
-    </header>
+              Home
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              to={"/shop"}
+              className={({ isActive }) => {
+                return isActive ? styles.activeLink : styles.link;
+              }}
+            >
+              Shop
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              to={"/signup"}
+              className={({ isActive }) => {
+                return isActive ? styles.activeLink : styles.link;
+              }}
+            >
+              About
+            </NavLink>
+          </li>
+          <li>
+            {isAuthenticated ? (
+              <button className={styles.loginButton} onClick={userLogout}>
+                Logout <i className="fa-solid fa-right-from-bracket"></i>
+              </button>
+            ) : (
+              <button
+                className={styles.loginButton}
+                onClick={() => navigate("/login")}
+              >
+                Login
+              </button>
+            )}
+          </li>
+        </ul>
+      </header>
+    </>
   );
 }
 
