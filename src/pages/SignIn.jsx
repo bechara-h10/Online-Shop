@@ -41,13 +41,19 @@ function SignIn() {
         setIsLoading(false);
         console.log(error);
       }
+      setIsLoading(false);
     });
   };
 
   const userLogin = async (email, password) => {
     setIsLoading(true);
     try {
-      const user = await signInWithEmailAndPassword(auth, email, password);
+      const userCredentials = await signInWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      const user = userCredentials.user;
       const userRef = doc(db, "users", user.uid);
       const userSnapshot = await getDoc(userRef);
       if (!userSnapshot.exists()) {
@@ -56,7 +62,6 @@ function SignIn() {
           cart: [],
         });
       }
-      console.log(user);
       dispatch(
         signIn({
           user: { email: user.email },
