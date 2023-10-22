@@ -1,7 +1,12 @@
 import React from "react";
+import LandingPage from "../components/LandingPage";
 
 function Home() {
-  return <div>Home</div>;
+  return (
+    <div>
+      <LandingPage />
+    </div>
+  );
 }
 
 export default Home;
