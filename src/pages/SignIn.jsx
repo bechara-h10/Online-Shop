@@ -24,15 +24,20 @@ function SignIn() {
       try {
         const userRef = doc(db, "users", user.uid);
         const userSnapshot = await getDoc(userRef);
+        let cart = [];
         if (!userSnapshot.exists()) {
           await setDoc(userRef, {
+            id: user.uid,
             email: user.email,
             cart: [],
           });
+        } else {
+          const userData = userSnapshot.data();
+          cart = userData.cart;
         }
         dispatch(
           signIn({
-            user: { email: user.email },
+            user: { id: user.uid, email: user.email, cart: cart },
           })
         );
         navigate("/");
@@ -56,15 +61,20 @@ function SignIn() {
       const user = userCredentials.user;
       const userRef = doc(db, "users", user.uid);
       const userSnapshot = await getDoc(userRef);
+      let cart = [];
       if (!userSnapshot.exists()) {
         await setDoc(userRef, {
+          id: user.uid,
           email: user.email,
           cart: [],
         });
+      } else {
+        const userData = userSnapshot.data();
+        cart = userData.cart;
       }
       dispatch(
         signIn({
-          user: { email: user.email },
+          user: { id: user.uid, email: user.email, cart: cart },
         })
       );
       toast("You have been successfully logged in");
@@ -97,7 +107,15 @@ function SignIn() {
           className={styles.formButton}
           onClick={() => userLogin(email, password)}
         >
-          {isLoading ? <LoadingSpinner /> : "Sign in"}
+          {isLoading ? (
+            <LoadingSpinner
+              width="30"
+              height="30"
+              colors={["#fff", "#fff", "#fff", "#fff", "#fff"]}
+            />
+          ) : (
+            "Sign in"
+          )}
         </button>
         <button
           className={cx(styles.formButton, styles.googleButton)}

@@ -3,9 +3,10 @@ import styles from "../styles/header.module.css";
 import logoNoBackground from "../assets/logo-no-background.svg";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { signOut as setSignOut, signIn } from "../redux/userSlice";
+import { setCart, signOut as setSignOut, signIn } from "../redux/userSlice";
 import { signOut, onAuthStateChanged } from "firebase/auth";
-import { auth } from "../firebase";
+import { doc, getDoc } from "firebase/firestore";
+import db, { auth } from "../firebase";
 import { Toaster } from "react-hot-toast";
 
 function Header() {
@@ -15,22 +16,7 @@ function Header() {
   const userLogout = async () => {
     await signOut(auth);
     dispatch(setSignOut());
-    navigate("/");
   };
-  useEffect(() => {
-    onAuthStateChanged(auth, async (user) => {
-      if (user) {
-        dispatch(
-          signIn({
-            user: {
-              email: user.email,
-            },
-          })
-        );
-        navigate("/");
-      }
-    });
-  }, []);
   return (
     <>
       <Toaster />
@@ -58,16 +44,6 @@ function Header() {
               }}
             >
               Shop
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
-              to={"/signup"}
-              className={({ isActive }) => {
-                return isActive ? styles.activeLink : styles.link;
-              }}
-            >
-              About
             </NavLink>
           </li>
           <li>

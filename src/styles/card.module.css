@@ -1,12 +1,18 @@
 .card {
   max-width: 300px;
-  height: 400px;
+  min-height: 300px;
   border: solid 1px #aaa;
   border-radius: 8px;
   display: flex;
   flex-direction: column;
   gap: 8px;
   overflow: hidden;
+}
+
+.topSection,
+.bottomSection {
+  flex: 1;
+  height: 60%;
 }
 
 .cardImage {
@@ -25,7 +31,7 @@
 .bottomSection {
   background-color: #252525;
   width: 100%;
-  flex-grow: 1;
+  height: 40%;
   color: #fff;
   display: flex;
   flex-direction: column;
@@ -35,11 +41,11 @@
 .cardDescription {
   text-align: center;
   padding-top: 8px;
+  height: 60%;
 }
 
 .cardDescription p {
-  margin: 0;
-  margin-top: 8px;
+  margin: 8px;
 }
 
 .price {
@@ -51,6 +57,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  height: 40%;
 }
 
 .addButton {
@@ -68,4 +75,36 @@
 
 .addButton:hover {
   opacity: 0.75;
+}
+
+.plusButton,
+.minusButton {
+  padding: 4px 16px;
+  border: none;
+  margin: 0 16px;
+  border-radius: 16px;
+  cursor: pointer;
+}
+
+.plusButton:hover,
+.minusButton:hover {
+  opacity: 0.75;
+}
+
+.minusButton {
+  background-color: hsl(0, 50%, 65%);
+}
+
+.minusButton:disabled {
+  background-color: hsl(0, 50%, 85%);
+  color: #777;
+}
+
+.plusButton {
+  background-color: hsl(100, 50%, 65%);
+}
+
+.plusButton:disabled {
+  background-color: hsl(100, 50%, 85%);
+  color: #777;
 }

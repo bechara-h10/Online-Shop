@@ -35,6 +35,7 @@ function SignUp() {
     try {
       const userRef = doc(db, "users", uid);
       await setDoc(userRef, {
+        id: uid,
         email: email,
         cart: [],
       });
@@ -78,7 +79,15 @@ function SignUp() {
           }
           onClick={() => signUp(email, password)}
         >
-          {isLoading ? <LoadingSpinner /> : "Sign up"}
+          {isLoading ? (
+            <LoadingSpinner
+              width="30"
+              height="30"
+              colors={["#fff", "#fff", "#fff", "#fff", "#fff"]}
+            />
+          ) : (
+            "Sign up"
+          )}
         </button>
         <p>
           Have an account?{" "}
