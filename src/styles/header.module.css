@@ -60,6 +60,26 @@
   cursor: pointer;
 }
 
+.cartLogo {
+  font-size: 24px;
+  position: relative;
+}
+
+.numberOfItems {
+  font-size: 16px;
+  background-color: #187ff5;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 4px;
+  border-radius: 50%;
+  position: absolute;
+  right: -12px;
+  top: -4px;
+}
+
 @media (width <= 768px) {
   .logoContainer img {
     width: 50px;

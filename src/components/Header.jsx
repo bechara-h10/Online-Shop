@@ -1,24 +1,25 @@
-import React, { useEffect } from "react";
+import React, { useState } from "react";
 import styles from "../styles/header.module.css";
 import logoNoBackground from "../assets/logo-no-background.svg";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { setCart, signOut as setSignOut, signIn } from "../redux/userSlice";
-import { signOut, onAuthStateChanged } from "firebase/auth";
-import { doc, getDoc } from "firebase/firestore";
-import db, { auth } from "../firebase";
+import { signOut } from "../redux/userSlice";
+import { signOut as firebaseSignOut } from "firebase/auth";
+import { auth } from "../firebase";
 import { Toaster } from "react-hot-toast";
 
 function Header() {
   const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const cart = useSelector((state) => state.user.cart);
   const userLogout = async () => {
-    await signOut(auth);
-    dispatch(setSignOut());
+    await firebaseSignOut(auth);
+    dispatch(signOut());
   };
+
   return (
-    <>
+    <div>
       <Toaster />
       <header className={styles.header}>
         <div className={styles.logoContainer}>
@@ -60,9 +61,19 @@ function Header() {
               </button>
             )}
           </li>
+          <li>
+            <NavLink to={"/cart"} className={styles.link}>
+              <span className={styles.cartLogo}>
+                {cart.length !== 0 && (
+                  <span className={styles.numberOfItems}>{cart.length}</span>
+                )}
+                <i className="fa-solid fa-bag-shopping"></i>
+              </span>
+            </NavLink>
+          </li>
         </ul>
       </header>
-    </>
+    </div>
   );
 }
 

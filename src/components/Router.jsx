@@ -5,45 +5,55 @@ import SignIn from "../pages/SignIn";
 import Layout from "../layouts/Layout";
 import Home from "../pages/Home";
 import ErrorPage from "./ErrorPage";
-import CheckCartButton from "./CheckCartButton";
 import Shop from "../pages/Shop";
+import Cart from "../pages/Cart";
 
 function Router() {
   const router = createBrowserRouter([
     {
-      path: "login",
+      path: "/login", // Add leading slash
       element: (
         <Layout>
           <SignIn />
         </Layout>
       ),
+      errorElement: <ErrorPage />,
     },
     {
-      path: "signup",
+      path: "/signup", // Add leading slash
       element: (
         <Layout>
           <SignUp />
         </Layout>
       ),
+      errorElement: <ErrorPage />,
     },
     {
       path: "/",
       element: (
         <Layout>
           <Home />
-          <CheckCartButton />
         </Layout>
       ),
       errorElement: <ErrorPage />,
     },
     {
-      path: "shop",
+      path: "/shop",
       element: (
         <Layout>
           <Shop />
-          <CheckCartButton />
         </Layout>
       ),
+      errorElement: <ErrorPage />,
+    },
+    {
+      path: "/cart",
+      element: (
+        <Layout>
+          <Cart />
+        </Layout>
+      ),
+      errorElement: <ErrorPage />,
     },
   ]);
   return <RouterProvider router={router} />;

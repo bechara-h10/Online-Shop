@@ -10,7 +10,7 @@ function Shop() {
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("electronics");
   const user = useSelector((state) => state.user.user);
-  const cart = user.cart;
+  const cart = useSelector((state) => state.user.cart);
   useEffect(() => {
     fetch("https://fakestoreapi.com/products/categories")
       .then((res) => res.json())

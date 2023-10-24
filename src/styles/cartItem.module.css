@@ -1,0 +1,84 @@
+.container {
+  width: 50%;
+  height: 200px;
+  border: solid 1px #aaa;
+  box-shadow: 0 0 6px 2px rgba(0, 0, 0, 0.25);
+  border-radius: 8px;
+  padding: 8px 32px;
+  display: flex;
+  gap: 10%;
+}
+
+.container .itemImage {
+  width: 10%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.container .itemImage img {
+  width: 100%;
+}
+
+.container .itemInfo {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 8px;
+  flex: 1;
+}
+
+.container .itemInfo .itemTitle {
+  font-weight: 500;
+}
+
+.container .itemInfo .userInteractions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.container .itemInfo .userInteractions .buttonContainer .plusButton,
+.container .itemInfo .userInteractions .buttonContainer .minusButton {
+  border: none;
+  font-size: 16px;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.container .itemInfo .userInteractions .buttonContainer .itemQuantity {
+  display: inline-block;
+  margin: 0;
+  margin-left: 8px;
+  margin-right: 8px;
+}
+
+.container .itemInfo .userInteractions .buttonContainer .plusButton {
+  color: hsl(150, 50%, 65%);
+  border-left: solid 1px #aaa;
+}
+
+.container .itemInfo .userInteractions .buttonContainer .minusButton {
+  color: hsl(0, 50%, 65%);
+  border-right: solid 1px #aaa;
+}
+
+.container .itemInfo .userInteractions .buttonContainer .minusButton:disabled {
+  color: #aaa;
+}
+
+.container .itemInfo .userInteractions .itemPrice {
+  font-weight: 500;
+  font-size: 24px;
+}
+
+.container .itemInfo .userInteractions .removeButton {
+  background-color: transparent;
+  border: none;
+  color: hsl(0, 50%, 60%);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}

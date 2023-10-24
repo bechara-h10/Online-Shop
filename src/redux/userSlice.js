@@ -5,9 +5,9 @@ const userSlice = createSlice({
   initialState: {
     user: {
       email: null,
-      cart: [],
     },
     isAuthenticated: false,
+    cart: [],
   },
   reducers: {
     signIn: (state, action) => {
@@ -17,9 +17,10 @@ const userSlice = createSlice({
     signOut: (state) => {
       state.user = null;
       state.isAuthenticated = false;
+      state.cart = [] || JSON.parse(localStorage.getItem("cart"));
     },
     setCart: (state, action) => {
-      state.user.cart = action.payload.cart;
+      state.cart = action.payload.cart;
     },
   },
 });

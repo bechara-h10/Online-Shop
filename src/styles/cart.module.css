@@ -1,0 +1,32 @@
+.container section .shopNowButton {
+  padding: 8px 16px;
+  border-radius: 100px;
+  border: none;
+  background-color: #1976d2;
+  color: #fff;
+  cursor: pointer;
+  transition: opacity 250ms ease-in-out;
+}
+
+.container section .shopNowButton:hover {
+  opacity: 0.75;
+}
+
+.container {
+  display: flex;
+  padding: 16px 32px;
+}
+
+.totalItems {
+  width: 50%;
+  display: flex;
+  font-size: 24px;
+  font-weight: 500;
+  justify-content: space-between;
+}
+
+.itemsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
