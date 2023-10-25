@@ -21,3 +21,14 @@
 .selectCategory:focus {
   outline: solid 1px #777;
 }
+
+@media (width <=768px) {
+  .gridContainer {
+    grid-template-columns: repeat(2, auto);
+    column-gap: 24px;
+    place-items: center;
+  }
+  .mainContainer {
+    padding: 0;
+  }
+}
