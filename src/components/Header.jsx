@@ -14,8 +14,11 @@ function Header() {
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.user.cart);
   const userLogout = async () => {
-    await firebaseSignOut(auth);
-    dispatch(signOut());
+    if (isAuthenticated) {
+      firebaseSignOut(auth).finally(() => {
+        dispatch(signOut());
+      });
+    }
   };
 
   return (

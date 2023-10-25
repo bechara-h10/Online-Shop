@@ -16,7 +16,7 @@ function Card({ id, title, price, image, count, cart }) {
     if (!isAuthenticated) {
       const existingCartItemIndex = cart.findIndex((item) => item.id === id);
       if (existingCartItemIndex === -1) {
-        const updatedCart = [...cart, { id: id, quantity: 1 }];
+        const updatedCart = [...cart, { id: id, quantity: 1, price: price }];
         localStorage.setItem("cart", JSON.stringify(updatedCart));
         dispatch(
           setCart({
@@ -36,7 +36,7 @@ function Card({ id, title, price, image, count, cart }) {
           (item) => item.id === id
         );
         if (existingCartItemIndex === -1) {
-          currentCart.push({ id: id, quantity: 1 });
+          currentCart.push({ id: id, quantity: 1, price: price });
         }
         await setDoc(userRef, { cart: currentCart }, { merge: true });
         dispatch(

@@ -22,7 +22,7 @@ function CartItem({ id, quantity }) {
         setImage(json.image);
         setPrice(json.price);
       });
-  }, []);
+  }, [quantity]);
 
   const modifyItemQuantity = async (id, quantity) => {
     const itemIndex = cart.findIndex((item) => item.id === id);
