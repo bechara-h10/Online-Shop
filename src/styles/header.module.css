@@ -80,6 +80,10 @@
   top: -4px;
 }
 
+.numberOfItems.hidden {
+  display: none;
+}
+
 @media (width <= 768px) {
   .logoContainer img {
     width: 50px;

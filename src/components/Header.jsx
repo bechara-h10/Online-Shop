@@ -6,7 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { signOut } from "../redux/userSlice";
 import { signOut as firebaseSignOut } from "firebase/auth";
 import { auth } from "../firebase";
-import { Toaster } from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
 
 function Header() {
   const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
@@ -17,6 +17,7 @@ function Header() {
     if (isAuthenticated) {
       firebaseSignOut(auth).finally(() => {
         dispatch(signOut());
+        toast("Logged out successfully!");
       });
     }
   };
@@ -68,11 +69,14 @@ function Header() {
           <li>
             <NavLink to={"/cart"} className={styles.link}>
               <span className={styles.cartLogo}>
-                {cart.length !== 0 ? (
-                  <span className={styles.numberOfItems}>{cart.length}</span>
-                ) : (
-                  ""
-                )}
+                <span
+                  className={`${styles.numberOfItems} ${
+                    cart.length === 0 && styles.hidden
+                  }`}
+                >
+                  {cart.length}
+                </span>
+
                 <i className="fa-solid fa-bag-shopping"></i>
               </span>
             </NavLink>
