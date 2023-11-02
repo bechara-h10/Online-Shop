@@ -51,11 +51,12 @@ function Header() {
             </NavLink>
           </li>
           <li>
-            {isAuthenticated ? (
+            {isAuthenticated && (
               <button className={styles.loginButton} onClick={userLogout}>
                 Logout <i className="fa-solid fa-right-from-bracket"></i>
               </button>
-            ) : (
+            )}
+            {!isAuthenticated && (
               <button
                 className={styles.loginButton}
                 onClick={() => navigate("/login")}
@@ -67,8 +68,10 @@ function Header() {
           <li>
             <NavLink to={"/cart"} className={styles.link}>
               <span className={styles.cartLogo}>
-                {cart.length !== 0 && (
+                {cart.length !== 0 ? (
                   <span className={styles.numberOfItems}>{cart.length}</span>
+                ) : (
+                  ""
                 )}
                 <i className="fa-solid fa-bag-shopping"></i>
               </span>
