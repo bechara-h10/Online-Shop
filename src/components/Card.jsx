@@ -5,6 +5,7 @@ import { doc, getDoc, setDoc } from "firebase/firestore";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { setCart } from "../redux/userSlice";
+import toast from "react-hot-toast";
 
 function Card({ id, title, price, image, count, cart }) {
   const [isAdded, setIsAdded] = useState(false);
@@ -23,6 +24,7 @@ function Card({ id, title, price, image, count, cart }) {
             cart: updatedCart,
           })
         );
+        toast("Item added to cart");
         return;
       }
     }
@@ -44,6 +46,7 @@ function Card({ id, title, price, image, count, cart }) {
             cart: currentCart,
           })
         );
+        toast("Item added to cart");
       }
     } catch (error) {
       console.log(error);

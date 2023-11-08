@@ -24,7 +24,7 @@ function Header() {
 
   return (
     <div>
-      <Toaster />
+      <Toaster position="bottom-center" />
       <header className={styles.header}>
         <div className={styles.logoContainer}>
           <img src={logoNoBackground} alt="All-Shop logo" />

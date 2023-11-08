@@ -1,12 +1,12 @@
-.gridContainer {
-  display: grid;
-  width: 100vw;
-  grid-template-columns: repeat(5, 1fr);
-  row-gap: 48px;
-}
-
 .mainContainer {
   padding: 24px;
+  width: 100vw;
+}
+
+.gridContainer {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  row-gap: 48px;
 }
 
 .selectCategory {
@@ -29,6 +29,6 @@
     place-items: center;
   }
   .mainContainer {
-    padding: 0;
+    padding: 8px;
   }
 }

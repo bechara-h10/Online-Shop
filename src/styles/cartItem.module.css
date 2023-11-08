@@ -87,4 +87,16 @@
   .container {
     width: 100%;
   }
+
+  .container .itemInfo .itemTitle {
+    max-height: 50px;
+  }
+
+  .container .itemInfo .userInteractions .itemPrice {
+    font-size: 16px;
+  }
+
+  p {
+    height: 100%;
+  }
 }

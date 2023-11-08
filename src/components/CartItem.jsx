@@ -4,6 +4,7 @@ import styles from "../styles/cartItem.module.css";
 import { doc, setDoc } from "firebase/firestore";
 import db from "../firebase";
 import { setCart } from "../redux/userSlice";
+import toast from "react-hot-toast";
 
 function CartItem({ id, quantity }) {
   const [title, setTitle] = useState("");
@@ -60,6 +61,7 @@ function CartItem({ id, quantity }) {
           cart: updatedCart,
         })
       );
+      toast("Item removed from cart");
     } else {
       try {
         const userRef = doc(db, "users", user.id);
@@ -69,6 +71,7 @@ function CartItem({ id, quantity }) {
             cart: updatedCart,
           })
         );
+        toast("Item removed from cart");
       } catch (error) {
         console.log(error);
       }

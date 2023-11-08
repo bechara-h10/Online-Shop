@@ -42,3 +42,9 @@
 .container section .shopNowButton:hover {
   opacity: 0.75;
 }
+
+@media (width <= 768px) {
+  .container {
+    padding: 16px;
+  }
+}
